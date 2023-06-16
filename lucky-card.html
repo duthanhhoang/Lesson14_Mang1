@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="deck"></div>
+    <hr>
+    <button onclick="chiaBai()">Chia bài</button>
+    <div id="player1"></div>
+
+    <script>
+
+        let cards = [];
+
+        let player1 = [];
+        function createDeck() {
+            let values = ["A",2,3,4,5,6,7,8,9];
+            let suites = ["D","H","C","S"];
+
+            for (let i = 0; i < values.length; i++) {
+                for (let j = 0; j < suites.length; j++) {
+                    let card = values[i]+suites[j]+".jpg";
+                    cards.push(card);
+                }
+            }
+            // console.log(cards);
+        }
+        createDeck();
+
+        function showDeck(){
+            let str = "";
+            for (let i = 0; i < cards.length; i++) {
+                str += `<img src='card_deck/${cards[i]}' width='50px'>`;
+            }
+            document.getElementById("deck").innerHTML = str;
+        }
+
+        showDeck();
+
+        function chiaBai() {
+            str = "";
+            player1 = [];
+            for (let i = 0; i < 3; i++) {
+                let rand = Math.floor(Math.random()*cards.length);
+                let card = cards.splice(rand,1);
+                player1.push(card);
+                str += `<img src='card_deck/${card}' width='50px'>`
+            }
+            document.getElementById("player1").innerHTML = str;
+            showDeck();
+            tinhDiem()
+        }
+
+        function tinhDiem(){
+            
+            let a = player1[0][0][0]
+            let b = player1[1][0][0]
+            let c = player1[2][0][0]
+            if (a == "A") a = 1;
+            if (b == "A") b = 1;
+            if (c == "A") c = 1;
+
+            let point = (+a + +b + +c) % 10;
+            if(point == 0) point = 10;
+
+            console.log(point);
+        }
+
+        
+
+    </script>
+</body>
+</html>
